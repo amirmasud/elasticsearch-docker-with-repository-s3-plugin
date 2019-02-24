@@ -9,7 +9,6 @@ ARG PLUGIN_INSTALL_PROXY=""
 ARG PACKAGES="net-tools lsof"
 
 RUN  if [ -n "${PACKAGES}" ]; then  yum install -y $PACKAGES && yum clean all && rm -rf /var/cache/yum; fi
-RUN curl 
 RUN proto="$(echo $PLUGIN_INSTALL_PROXY | grep :// | sed -e's,^\(.*://\).*,\1,g')" && \
     url="$(echo ${PLUGIN_INSTALL_PROXY/$proto/})" && \
     userpass="$(echo $url | grep @ | cut -d@ -f1)" && \
