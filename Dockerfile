@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.3.0
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.0
 
 ARG ACCESS_KEY
 ARG SECRET_KEY
@@ -14,7 +14,7 @@ RUN proto="$(echo $PLUGIN_INSTALL_PROXY | grep :// | sed -e's,^\(.*://\).*,\1,g'
     userpass="$(echo $url | grep @ | cut -d@ -f1)" && \
     pass="$(echo $userpass | grep : | cut -d: -f2)" && \
     if [ -n "$pass" ]; then  \
-    user="$(echo $userpass | grep : | cut -d: -f1)" && \
+    user="$(echo $userpass | grep : | cut -d: -f1)" \
     else user=$userpass fi && \
     host="$(echo ${url/$user:$pass@/} | cut -d/ -f1)" && \
     port="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')" && \
