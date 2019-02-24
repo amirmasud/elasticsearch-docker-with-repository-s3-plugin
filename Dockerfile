@@ -19,7 +19,7 @@ RUN proto="$(echo $PLUGIN_INSTALL_PROXY | grep :// | sed -e's,^\(.*://\).*,\1,g'
     host="$(echo ${url/$user:$pass@/} | cut -d/ -f1)" && \
     port="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')" && \
     host=${host/:$port} && \
-    ES_JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttp.proxyUser=$user -Dhttp.proxyPassword=$pass -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port -Dhttps.proxyUser=$user -Dhttps.proxyPassword=$pass" \
+    ES_JAVA_OPTS="-Djdk.http.auth.tunneling.disabledSchemes='' -Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttp.proxyUser=$user -Dhttp.proxyPassword=$pass -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port -Dhttps.proxyUser=$user -Dhttps.proxyPassword=$pass" \
     /usr/share/elasticsearch/bin/elasticsearch-plugin install --batch repository-s3 && \
      /usr/share/elasticsearch/bin/elasticsearch-keystore create && \
 	echo "$ACCESS_KEY"  | /usr/share/elasticsearch/bin/elasticsearch-keystore add --stdin s3.client.default.access_key  && \
